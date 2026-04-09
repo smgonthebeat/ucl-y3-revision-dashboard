@@ -1,6 +1,6 @@
 window.DASHBOARD_DATA = {
   "meta": {
-    "generatedAt": "2026-04-09 05:10:58 BST",
+    "generatedAt": "2026-04-09 05:24:08 BST",
     "lastUpdated": "2026-04-09 03:08 BST",
     "currentPlanningDate": "2026-04-09",
     "selectedDate": "2026-04-09",
