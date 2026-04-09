@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UCL Y3 Revision Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero" aria-labelledby="dashboard-heading">
+        <div class="hero-toolbar">
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
+            <span class="theme-toggle-kicker">Theme</span>
+            <span class="theme-toggle-value" id="theme-toggle-value">Study mode</span>
+          </button>
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow">UCL Y3 Revision System</p>
+          <h1 id="dashboard-heading">Study dashboard for the exam block</h1>
+          <p class="hero-text">
+            This is your revision workspace: start with today, use the calendar to navigate, and
+            open the lower reference area only when you need strategy or context.
+          </p>
+          <div class="hero-actions" id="hero-actions" aria-label="Quick actions"></div>
+        </div>
+        <div class="hero-stats" id="hero-stats" aria-label="Dashboard overview"></div>
+      </header>
+
+      <section class="workspace-toolbar panel" aria-label="Workspace modes">
+        <div class="workspace-toolbar-copy">
+          <p class="panel-kicker">Workspace</p>
+          <h2 id="workspace-mode-heading">Overview</h2>
+          <p id="workspace-mode-hint" class="workspace-mode-hint">
+            Start here. Use overview for the calendar, today’s timeline, and the selected block preview.
+          </p>
+        </div>
+        <div id="workspace-mode-nav" class="workspace-mode-nav" aria-label="Workspace modes"></div>
+      </section>
+
+      <main class="layout">
+        <div class="layout-main">
+          <section class="calendar-panel panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Month</p>
+                <h2>Calendar overview</h2>
+              </div>
+              <div class="month-nav" aria-label="Month navigation">
+                <button id="prev-month" type="button" aria-label="Previous month">←</button>
+                <div id="month-label" class="month-label" aria-live="polite"></div>
+                <button id="jump-today" type="button" aria-label="Jump to current planning date">Today</button>
+                <button id="next-month" type="button" aria-label="Next month">→</button>
+              </div>
+            </div>
+            <div class="calendar-legend" id="calendar-legend"></div>
+            <div class="weekday-row" id="weekday-row"></div>
+            <div id="month-grid" class="month-grid" role="grid" aria-label="Revision calendar"></div>
+          </section>
+
+          <section class="status-panel panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Status</p>
+                <h2 id="status-heading">Planning snapshot</h2>
+              </div>
+            </div>
+            <p id="status-intro" class="panel-intro">
+              Check readiness, sync, and the next two weeks here. You do not need this view to start today’s study block.
+            </p>
+            <div id="week-focus-rail" class="focus-rail"></div>
+            <div id="status-cards" class="status-grid"></div>
+          </section>
+
+          <section class="reference-panel panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Reference workspace</p>
+                <h2 id="reference-heading">Reference workspace</h2>
+              </div>
+            </div>
+            <p class="reference-intro" id="reference-intro">
+              Open this only when you need planning context, study methods, course guidance, or recent logs.
+            </p>
+            <div class="reference-tabs" id="reference-tabs" aria-label="Reference workspace tabs"></div>
+            <div class="reference-meta">
+              <p class="reference-hint" id="reference-hint">Choose a tab to load the right kind of support.</p>
+            </div>
+            <div class="reference-stage">
+              <section class="reference-view" id="reference-week" aria-label="Week plan view">
+                <div id="week-list" class="week-list"></div>
+              </section>
+              <section class="reference-view" id="reference-phase" aria-label="Phase plan view" hidden>
+                <div id="phase-list" class="phase-list"></div>
+              </section>
+              <section class="reference-view" id="reference-planning" aria-label="Planning state view" hidden>
+                <div id="planning-summary" class="planning-summary"></div>
+                <div id="planning-grid" class="planning-grid"></div>
+              </section>
+              <section class="reference-view" id="reference-methods" aria-label="Study methods view" hidden>
+                <div id="method-grid" class="card-grid"></div>
+              </section>
+              <section class="reference-view" id="reference-courses" aria-label="Course playbooks view" hidden>
+                <div id="playbook-list" class="playbook-list"></div>
+              </section>
+              <section class="reference-view" id="reference-log" aria-label="Progress log view" hidden>
+                <div id="progress-list" class="progress-list"></div>
+              </section>
+            </div>
+          </section>
+        </div>
+
+        <aside class="layout-rail">
+          <section class="today-panel panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Today</p>
+                <h2 id="day-title" aria-live="polite">Daily plan</h2>
+              </div>
+              <div class="pill pill-emphasis" id="day-goal-pill">Goal</div>
+            </div>
+            <div class="today-guide" aria-label="How to use today's panel">
+              <span class="guide-step">1. Read the day goal</span>
+              <span class="guide-step">2. Start the first timeline block</span>
+              <span class="guide-step">3. Revisit and carry forward at night</span>
+            </div>
+            <div class="today-callout">
+              <p class="today-callout-label">What matters most</p>
+              <p id="today-callout-text">Open today's first block and begin there.</p>
+            </div>
+            <div id="day-focus" class="chip-row" aria-label="Daily focus"></div>
+            <div id="today-meta" class="today-meta"></div>
+            <div class="day-columns">
+              <div>
+                <h3>Timeline</h3>
+                <div id="task-list" class="task-list" aria-live="polite"></div>
+              </div>
+              <div>
+                <h3>Revisit queue</h3>
+                <div id="revisit-list" class="stack-list" aria-live="polite"></div>
+                <h3>Carry forward</h3>
+                <div id="carry-list" class="stack-list" aria-live="polite"></div>
+              </div>
+            </div>
+          </section>
+        </aside>
+
+        <section class="execution-panel panel" aria-label="Execution workspace">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Execution workspace</p>
+              <h2 id="execution-heading">Selected block detail</h2>
+            </div>
+          </div>
+          <p class="execution-intro" id="execution-intro">
+            Use the timeline to choose a study block. The selected block opens here with a wider, execution-first protocol view.
+          </p>
+          <div class="execution-workspace">
+            <section id="block-detail" class="detail-panel detail-panel--primary" aria-label="Block detail"></section>
+            <section
+              id="resource-completion-panel"
+              class="detail-panel detail-panel--secondary"
+              aria-label="Resource completion"
+            ></section>
+          </div>
+        </section>
+      </main>
+
+      <footer class="page-footer">
+        <span>Markdown is the source of truth.</span>
+        <span>Refresh this page after the tutor rebuilds dashboard data.</span>
+      </footer>
+    </div>
+
+    <script src="./dashboard-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
